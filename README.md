@@ -16,7 +16,8 @@ This package provides a GUI interfrace for simple mathematical operations on ima
 - logical and, or, xor
 - z-projection (mean and sum)
 
-Operations can be peformed on a single layer or between layers, for example adding one layer to another.
+Operations can be peformed on a single layer or between Image layers (functionaly pending for Surface and Point layers), 
+for example adding one layer to another.
 
 When performing operations on two images of different sizes, the result will be the size of the smallest
 of the two images.

@@ -39,12 +39,8 @@ def math_init(widget: FunctionGui):
     def _layer0_callback(new_layer: Layer):
         widget.layer1.reset_choices()
         widget.layer1.visible = isinstance(new_layer, Image)
+        widget.operation.reset_choices()
 
-        # Update operations
-        opts = ['add', 'subtract', 'multiply', 'divide']
-        if type(new_layer) == Image:
-            opts.extend(['and', 'or', 'xor', 'z-project sum', 'z-project mean'])
-        widget.operation.choices = opts
 
     @widget.operation.changed.connect
     def _operation_callback(new_operation: str):
@@ -55,13 +51,11 @@ def math_init(widget: FunctionGui):
             widget.scalar.visible = True
             widget.layer1.visible = True
 
-
-def _l1choices(wdg):
-    layers = []
+def _parent_trap(wdg):
     parent = wdg.parent
+    math_widget = None
     if parent:
         # hi onlooker, avert your eyes, this is awful and should not be emulated :)
-        math_widget = None
         while parent:
             # look for the parent math_widget FunctionGui
             if isinstance(getattr(parent, '_magic_widget', None), FunctionGui):
@@ -69,7 +63,22 @@ def _l1choices(wdg):
                 break
             parent = parent.parent()
         assert math_widget, 'Could not find parent FunctionGui?'
+    return math_widget
 
+def _opchoices(wdg):
+    # Update operations
+    opts = ['add', 'subtract', 'multiply', 'divide']
+    math_widget = _parent_trap(wdg)
+    if math_widget is not None:
+        if type(math_widget.layer0.value) == Image:
+            opts.extend(['and', 'or', 'xor', 'z-project sum', 'z-project mean'])
+    return opts
+
+def _l1choices(wdg):
+    layers = []
+    math_widget = _parent_trap(wdg)
+
+    if math_widget is not None:
         lay0 = math_widget.layer0.value
         viewer = find_viewer_ancestor(math_widget)
         if viewer and isinstance(lay0, Image):
@@ -80,7 +89,7 @@ def _l1choices(wdg):
 
 @magic_factory(
     widget_init=math_init,
-    operation={"choices": operation_dict.keys()},
+    operation={"choices": _opchoices},
     layer1={"choices": _l1choices, "nullable": True},
     _lbl={'widget_type': 'Label'},
     layout="horizontal",

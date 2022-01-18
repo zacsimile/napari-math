@@ -1,4 +1,4 @@
-def pass_tests():
+def test_pass():
     """
     TODO: Write real tests.
     """

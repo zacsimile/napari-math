@@ -89,4 +89,4 @@ Many plugins may be used in the course of published (or publishable) research, a
 during conference talks and other public facing events. If you'd like to be cited in
 a particular format, or have a DOI you'd like used, you should provide that information here. -->
 
-The developer has not yet provided a napari-hub specific description.
+Simple mathematical operations on image, point and surface layers.

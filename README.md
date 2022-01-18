@@ -7,18 +7,24 @@
 [![codecov](https://codecov.io/gh/zacsimile/napari-math/branch/main/graph/badge.svg)](https://codecov.io/gh/zacsimile/napari-math)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-math)](https://napari-hub.org/plugins/napari-math)
 
-ISimple mathematical operations on image, point and surface layers.
+This package provides a GUI interfrace for simple mathematical operations on image, point and surface layers.
+
+- addition
+- subtraction
+- multiplication
+- division
+- logical and, or, xor
+- z-projection (mean and sum)
+
+Operations can be peformed on a single layer or between layers, for example adding one layer to another.
+
+When performing operations on two images of different sizes, the result will be the size of the smallest
+of the two images.
 
 ----------------------------------
 
-This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
-
 <!--
-Don't miss the full getting started guide to set up your new package:
-https://github.com/napari/cookiecutter-napari-plugin#getting-started
-
-and review the napari docs for plugin developers:
-https://napari.org/plugins/stable/index.html
+This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
 -->
 
 ## Installation
@@ -42,7 +48,7 @@ Distributed under the terms of the [MIT] license,
 
 ## Issues
 
-If you encounter any problems, please [file an issue] along with a detailed description.
+If you encounter any problems, please file an [issue] along with a detailed description.
 
 [napari]: https://github.com/napari/napari
 [Cookiecutter]: https://github.com/audreyr/cookiecutter

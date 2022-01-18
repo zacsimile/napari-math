@@ -2,20 +2,9 @@ name: napari-math
 display_name: napari math
 contributions:
   commands: 
-    - id: napari-math.make_qwidget
-      python_name: napari_math._widget:ExampleQWidget
-      title: Make example QWidget
-    - id: napari-math.make_magic_widget
-      python_name: napari_math._widget:example_magic_widget
-      title: Make example magic widget
-    - id: napari-math.make_func_widget
-      python_name: napari_math._widget:example_function_widget
-      title: Make example function widget   
+    - id: napari-math.math_widget
+      python_name: napari_math._widget:make_math_widget
+      title: Make math widget 
   widgets:
-    - command: napari-math.make_qwidget
-      display_name: Example QWidget
-    - command: napari-math.make_magic_widget
-      display_name: Example Magic Widget
-    - command: napari-math.make_func_widget
-      autogenerate: true
-      display_name: Example Function Widget 
+    - command: napari-math.math_widget
+      display_name: Math operations

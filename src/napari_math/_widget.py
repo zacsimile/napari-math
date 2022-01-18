@@ -38,6 +38,8 @@ def math_init(widget: FunctionGui):
     @widget.layer0.changed.connect
     def _layer0_callback(new_layer: Layer):
         widget.layer1.reset_choices()
+        widget.layer1.visible = isinstance(new_layer, Image)
+
         # Update operations
         opts = ['add', 'subtract', 'multiply', 'divide']
         if type(new_layer) == Image:

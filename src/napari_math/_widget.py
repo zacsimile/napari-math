@@ -1,11 +1,13 @@
-from xxlimited import new
+from typing import Optional
 from napari.layers import Layer, Points, Surface, Image
 from napari.types import LayerDataTuple
 from napari.utils._magicgui import find_viewer_ancestor
 
 from magicgui import magic_factory
+from magicgui.widgets import FunctionGui
 import numpy as np
-from enum import Enum
+
+
 
 # set of all possible operations
 operation_dict = {'add': np.add,
@@ -31,21 +33,11 @@ def get_layer_data(layer):
     else:
         return layer.data
 
-def math_init(widget):
+
+def math_init(widget: FunctionGui):
     @widget.layer0.changed.connect
     def _layer0_callback(new_layer: Layer):
-        viewer = find_viewer_ancestor(widget)
-        layers = ["<no layer>"]
-        # Update layers
-        if type(new_layer) == Image:
-            for layer in viewer.layers:
-                if type(layer) == Image:
-                    layers.append(layer)
-            widget.layer1.visible = True
-        else:
-            widget.layer1.visible = False
-        widget.layer1.choices = layers
-
+        widget.layer1.reset_choices()
         # Update operations
         opts = ['add', 'subtract', 'multiply', 'divide']
         if type(new_layer) == Image:
@@ -61,26 +53,49 @@ def math_init(widget):
             widget.scalar.visible = True
             widget.layer1.visible = True
 
-    @widget.layer1.changed.connect
-    def _layer1_callback(new_layer: Layer):
-        if ((type(widget.layer0) == Surface) and (type(widget.layer1) == Points)) \
-           or ((type(widget.layer0) == Points) and (type(widget.layer1) == Surface)):
-           widget.operation.choices = ['and']            
 
-@magic_factory(widget_init=math_init, layer0={'label' : '\u0020'},
-               operation={'choices' : list(operation_dict.keys()), 'label' : '\u0020'},
-               scalar={'label' : '\u0020'}, layer1={'choices': ["<no layer>"], 'label': ' x '},
-               layout='horizontal', call_button='Calculate',)
-def make_math_widget(layer0: Layer, 
-                     operation: str, 
-                     scalar: float = 1.0, 
-                     layer1: Layer = "<no layer>") -> LayerDataTuple:
+def _l1choices(wdg):
+    layers = []
+    parent = wdg.parent
+    if parent:
+        # hi onlooker, avert your eyes, this is awful and should not be emulated :)
+        math_widget = None
+        while parent:
+            # look for the parent math_widget FunctionGui
+            if isinstance(getattr(parent, '_magic_widget', None), FunctionGui):
+                math_widget = parent._magic_widget
+                break
+            parent = parent.parent()
+        assert math_widget, 'Could not find parent FunctionGui?'
+
+        lay0 = math_widget.layer0.value
+        viewer = find_viewer_ancestor(math_widget)
+        if viewer and isinstance(lay0, Image):
+            layers.extend([x for x in viewer.layers if isinstance(x, type(lay0))])
+            # TODO: deal with other layer types
+    return layers
+
+
+@magic_factory(
+    widget_init=math_init,
+    operation={"choices": operation_dict.keys()},
+    layer1={"choices": _l1choices, "nullable": True},
+    _lbl={'widget_type': 'Label'},
+    layout="horizontal",
+    labels=False,
+    call_button="Calculate",
+)
+def make_math_widget(layer0: Layer,
+                     operation: str,
+                     _lbl = '  x',
+                     scalar: float = 1.0,
+                     layer1: Optional[Layer] = None) -> LayerDataTuple:
 
     # Store source images in metadata
     layer0_name = layer0._source.path if layer0._source.path is not None else layer0.name
     md = {"layer0": layer0_name, "operation": operation, "scalar": scalar}
 
-    if layer1 == "<no layer>":
+    if layer1:
         # If we're only dealing with one layer, we only need to apply the operation
         # to the scalar
         data = operation_dict.get(operation)(get_layer_data(layer0).T, scalar).T

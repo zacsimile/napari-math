@@ -97,7 +97,7 @@ def make_math_widget(layer0: Layer,
     layer0_name = layer0._source.path if layer0._source.path is not None else layer0.name
     md = {"layer0": layer0_name, "operation": operation, "scalar": scalar}
 
-    if layer1:
+    if not layer1:
         # If we're only dealing with one layer, we only need to apply the operation
         # to the scalar
         data = operation_dict.get(operation)(get_layer_data(layer0).T, scalar).T

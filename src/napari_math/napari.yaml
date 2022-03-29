@@ -5,6 +5,11 @@ contributions:
     - id: napari-math.math_widget
       python_name: napari_math._widget:make_math_widget
       title: Make math widget 
+    - id: napari-math.add_images_widget
+      python_name: napari_math._widget:add_images
+      title: Add images
   widgets:
     - command: napari-math.math_widget
       display_name: Math operations
+    - command: napari-math.add_images_widget
+      display_name: Add images

@@ -1,6 +1,6 @@
 from typing import Optional
 from napari.layers import Layer, Points, Surface, Image
-from napari.types import LayerDataTuple
+from napari.types import LayerDataTuple, ImageData
 from napari.utils._magicgui import find_viewer_ancestor
 
 from magicgui import magic_factory
@@ -162,3 +162,8 @@ def make_math_widget(layer0: Layer,
 
     # By default we return a new layer of type layer0
     return [(data, {"metadata": md}, layer0._type_string)]
+
+@magic_factory
+def add_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.add(image0, image1)
+    

@@ -8,8 +8,88 @@ contributions:
     - id: napari-math.add_images_widget
       python_name: napari_math._widget:add_images
       title: Add images
+    - id: napari-math.add_image_widget
+      python_name: napari_math._widget:add_image
+      title: Add image and scalar
+    - id: napari-math.subtract_images_widget
+      python_name: napari_math._widget:subtract_images
+      title: Subtract images
+    - id: napari-math.subtract_image_widget
+      python_name: napari_math._widget:subtract_image
+      title: Subtract image and scalar
+    - id: napari-math.multiply_images_widget
+      python_name: napari_math._widget:multiply_images
+      title: Multiply images
+    - id: napari-math.multiply_image_widget
+      python_name: napari_math._widget:multiply_image
+      title: Multiply image by scalar
+    - id: napari-math.divide_images_widget
+      python_name: napari_math._widget:divide_images
+      title: Divide images
+    - id: napari-math.divide_image_widget
+      python_name: napari_math._widget:divide_image
+      title: Divide image by scalar
+    - id: napari-math.and_images_widget
+      python_name: napari_math._widget:and_images
+      title: Logical AND images
+    - id: napari-math.and_image_widget
+      python_name: napari_math._widget:and_image
+      title: Logical AND image and value
+    - id: napari-math.or_images_widget
+      python_name: napari_math._widget:or_images
+      title: Logical OR images
+    - id: napari-math.or_image_widget
+      python_name: napari_math._widget:or_image
+      title: Logical OR image
+    - id: napari-math.xor_images_widget
+      python_name: napari_math._widget:xor_images
+      title: Logical XOR images
+    - id: napari-math.xor_image_widget
+      python_name: napari_math._widget:xor_image
+      title: Logical XOR image
+    - id: napari-math.z_sum_image_widget
+      python_name: napari_math._widget:z_sum_image
+      title: z-project sum
+    - id: napari-math.z_mean_image_widget
+      python_name: napari_math._widget:z_mean_image
+      title: z-project mean
+    - id: napari-math.z_max_image_widget
+      python_name: napari_math._widget:z_max_image
+      title: z-project maximum
   widgets:
     - command: napari-math.math_widget
       display_name: Math operations
     - command: napari-math.add_images_widget
       display_name: Add images
+    - command: napari-math.add_image_widget
+      display_name: Add image and scalar
+    - command: napari-math.subtract_images_widget
+      display_name: Subtract images
+    - command: napari-math.subtract_image_widget
+      display_name: Subtract image and scalar
+    - command: napari-math.add_images_widget
+      display_name: Multiply images
+    - command: napari-math.multiply_image_widget
+      display_name: Multiply image by scalar
+    - command: napari-math.divide_images_widget
+      display_name: Divide images
+    - command: napari-math.divide_image_widget
+      display_name: Divide image by scalar
+    - command: napari-math.and_images_widget
+      display_name: Logical AND images
+    - command: napari-math.and_image_widget
+      display_name: Logical AND image and value
+    - command: napari-math.or_images_widget
+      display_name: Logical OR images
+    - command: napari-math.or_image_widget
+      display_name: Logical OR image and value
+    - command: napari-math.xor_images_widget
+      display_name: Logical XOR images
+    - command: napari-math.xor_image_widget
+      display_name: Logical XOR image and value
+    - command: napari-math.z_sum_image_widget
+      display_name: z-project sum
+    - command: napari-math.z_mean_image_widget
+      display_name: z-project mean
+    - command: napari-math.z_max_image_widget
+      display_name: z-project max

@@ -18,7 +18,8 @@ operation_dict = {'add': np.add,
                   'or': np.logical_or,
                   'xor': np.logical_xor,
                   'z-project sum' : lambda x, y: np.sum(x,axis=2),
-                  'z-project mean' : lambda x, y: np.mean(x,axis=2)}
+                  'z-project mean' : lambda x, y: np.mean(x,axis=2),
+                  'z-project max' : lambda x, y: np.max(x,axis=2)}
 
 def get_layer_data(layer):
     # Return a single numpy array to manipulate
@@ -166,4 +167,67 @@ def make_math_widget(layer0: Layer,
 @magic_factory
 def add_images(image0: ImageData, image1: ImageData) -> ImageData:
     return np.add(image0, image1)
-    
+
+@magic_factory
+def add_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.add(image0, scalar)
+
+@magic_factory
+def subtract_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.subtract(image0, image1)
+
+@magic_factory
+def subtract_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.subtract(image0, scalar)
+
+@magic_factory
+def multiply_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.multiply(image0, image1)
+
+@magic_factory
+def multiply_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.multiply(image0, scalar)
+
+@magic_factory
+def divide_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.divide(image0, image1)
+
+@magic_factory
+def divide_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.divide(image0, scalar)
+
+@magic_factory
+def and_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.logical_and(image0, image1)
+
+@magic_factory
+def and_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.logical_and(image0, scalar)
+
+@magic_factory
+def or_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.logical_or(image0, image1)
+
+@magic_factory
+def or_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.logical_or(image0, scalar)
+
+@magic_factory
+def xor_images(image0: ImageData, image1: ImageData) -> ImageData:
+    return np.logical_xor(image0, image1)
+
+@magic_factory
+def xor_image(image0: ImageData, scalar: float) -> ImageData:
+    return np.logical_xor(image0, scalar)
+
+@magic_factory
+def z_sum_image(image0: ImageData) -> ImageData:
+    return np.sum(image0, axis=2)
+
+@magic_factory
+def z_mean_image(image0: ImageData) -> ImageData:
+    return np.mean(image0, axis=2)
+
+@magic_factory
+def z_max_image(image0: ImageData) -> ImageData:
+    return np.max(image0, axis=2)
